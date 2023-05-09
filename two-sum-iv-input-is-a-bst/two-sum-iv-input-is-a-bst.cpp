@@ -36,7 +36,7 @@ class BSTIterator{
         TreeNode* ans = st.top();
         st.pop();
 
-        if(!reverse)    pushInStk(ans->right);
+        if(reverse == false)    pushInStk(ans->right);
         else    pushInStk(ans->left);
 
         return ans->val;
