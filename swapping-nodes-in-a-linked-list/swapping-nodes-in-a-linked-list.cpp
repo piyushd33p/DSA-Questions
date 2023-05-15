@@ -9,46 +9,20 @@
  * };
  */
 class Solution {
-private:
-    int getSize(ListNode* head){
-
-        int size = 0;
-
-        ListNode* temp = head;
-
-        while(temp){
-            size++;
-            temp = temp->next;
-        }
-        return size;
-    }
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-
-        if(head == NULL)    return head;
-
-        int size = getSize(head);
-
-        if(k>size || size == 1)  return head;
-
-        ListNode* temp = head, *node1 = NULL, *node2 = NULL;
-        int count = 1, val1, val2;
+        ListNode* temp = head, *left = head, *right= head;
+        int count = 1;
 
         while(temp){
-            if(count == k){
-                node1 = temp;
-                val1 = temp->val;
-            }
-            if(count == (size - k +1)){
-                node2 = temp;
-                val2 = temp->val;
-            }
-            temp = temp->next;
+            if(count< k)    left = left->next;
+            if(count > k)   right = right->next;
+
             count++;
+            temp = temp->next;
         }
-                node1->val = val2;
-                node2->val = val1;
-         return head;
-        
+
+        swap(left->val, right->val);
+        return head;
     }
 };
