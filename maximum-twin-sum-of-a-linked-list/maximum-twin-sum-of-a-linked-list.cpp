@@ -26,7 +26,7 @@ public:
         }
         int twinSum = INT_MIN;
 
-        for(int i = 0; i<= count/2; i++){
+        for(int i = 0; i< count/2; i++){
             twinSum = max(twinSum, helper[i]+helper[count-i-1]);
         }
         return twinSum;
