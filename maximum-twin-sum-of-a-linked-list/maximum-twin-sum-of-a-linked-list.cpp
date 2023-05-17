@@ -9,49 +9,27 @@
  * };
  */
 class Solution {
-private:
-    ListNode* findMid(ListNode* head){
-        ListNode* slow  = head;
-        ListNode* fast = head;
-
-        while(fast && fast->next){
-            slow = slow->next;
-            fast = fast->next->next;
-        }
-        return slow;
-    }
-
-    ListNode* reverse(ListNode* head){
-        ListNode *prev  = NULL, *curr = head, *fwd = NULL;
-
-        while(curr){
-            fwd = curr->next;
-            curr->next = prev;
-            prev  = curr;
-            curr = fwd;
-        }
-
-        return prev;
-    }
 public:
     int pairSum(ListNode* head) {
+
         if(head->next->next == NULL)    return head->val + head->next->val;
 
-        ListNode* mid = findMid(head);
+        ListNode* curr = head;
+        vector<int> helper;
 
-        ListNode* temp = reverse(mid);
+        int count  = 0;
 
-        ListNode* firstPtr = head;
-        ListNode* secondPtr = temp;
-
+        while(curr){
+            helper.push_back(curr->val);
+            curr = curr->next;
+            count++;
+        }
         int twinSum = INT_MIN;
-        while(secondPtr){
-            twinSum = max(twinSum, firstPtr->val + secondPtr->val);
-            firstPtr = firstPtr->next;
-            secondPtr = secondPtr->next;
+
+        for(int i = 0; i<= count/2; i++){
+            twinSum = max(twinSum, helper[i]+helper[count-i-1]);
         }
         return twinSum;
-
         
     }
 };
