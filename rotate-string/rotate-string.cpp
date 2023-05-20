@@ -1,25 +1,19 @@
 class Solution {
-
-private: 
-    bool checkRotate(string A, string B, int rotate){
-        for(int i = 0 ; i< A.size(); i++ ){
-            if(A[i] != B[(i+rotate) % A.size()])    return false;
-        }
-        return true;
-    }
 public:
     bool rotateString(string s, string goal) {
+
         int n = s.size(), m = goal.size();
 
-        if( n != m) return false;
+        if( n!= m)      return false;
+        if(s == goal)   return true;
+        string temp = "";
+        for(int  i = 1; i<n; i++){
+            temp = s[0];
 
-        if(!n)  return true;
-
-        for(int k = 0 ; k < n ; k++){
-            if(checkRotate(s, goal, k))     return true;
+            s = s.substr(1, n) + temp;
+            if(s == goal)   return true;
         }
         return false;
-
-
+        
     }
 };
