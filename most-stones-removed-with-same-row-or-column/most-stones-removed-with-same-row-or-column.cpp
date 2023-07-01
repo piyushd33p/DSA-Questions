@@ -34,14 +34,17 @@ public:
     int removeStones(vector<vector<int>>& stones) {
         int n = stones.size();
         int maxRow = 0, maxCol = 0;
-
+        //CALCULATE MAX ROW AND MAX COL
         for(auto it: stones){
             maxRow  = max(maxRow, it[0]);
             maxCol = max(maxCol, it[1]);
         }
 
+        // INITIALISE DISJOINT ST
         DisjointSet ds(maxRow + maxCol +2);
         set<int> compos;
+
+        // /TRAVERSE AND JOIN THE ROW AND COLUMNS
 
         for(auto it:stones){
             int nodeRow = it[0];
@@ -52,6 +55,7 @@ public:
             compos.insert(nodeCol);
         }
 
+        // COUNT COMPO TO SUBTRACT FRON STONES TO GET STONES REMOVED
         int countCompo = 0;
 
         for(auto it: compos){
