@@ -11,23 +11,22 @@ public:
     int longestConsecutive(vector<int>& nums) {
         int n  = nums.size();
         int maxConsec = 0;
-        int curr = 1;
+        
+        unordered_set<int> st;
 
-        sort(nums.begin(), nums.end());
-        int last = INT_MIN;
-        for(int i = 0 ; i < n ; i++){
+        for(auto it: nums)  st.insert(it);
 
-            
+        for(auto it: st){
+            if(st.find(it -1) == st.end()){
+                int temp = it;
+                int count = 1;
 
-            if(nums[i] - 1 == last){
-                curr++;
+                while(st.find(temp+1) != st.end()){
+                    count++;
+                    temp = temp+1;
+                }
+                maxConsec = max(maxConsec, count);
             }
-            else if(nums[i]  != last){
-
-                curr = 1;
-            }
-                maxConsec = max(maxConsec, curr);
-                last = nums[i];
         }
 
         return maxConsec;
