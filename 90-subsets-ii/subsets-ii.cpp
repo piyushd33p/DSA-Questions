@@ -1,34 +1,31 @@
 class Solution {
-    void subs(vector<int>& nums, int index, int n,
-                 set<vector<int>> &st, vector<int>&ds){
-
+private:
+    void subSum(int index, vector<int>& nums, vector<int>& ds, int n, set<vector<int>>& st){
         if(index == n){
             st.insert(ds);
             return;
         }
-
         ds.push_back(nums[index]);
-        subs(nums, index+1, n, st, ds);
+
+        subSum(index+1, nums, ds, n, st);
 
         ds.pop_back();
-        subs(nums, index+1, n, st, ds);
-        
+        subSum(index+1, nums, ds, n, st);
+
     }
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        set<vector<int>> st;
-        vector<vector<int>> ans;
         vector<int> ds;
         int n = nums.size();
 
+        set<vector<int>> st;
         sort(nums.begin(), nums.end());
+        subSum(0, nums, ds, n, st);
 
-        subs(nums, 0, n, st,ds);
+        vector<vector<int>> ans;
 
-        for(auto it: st){
-            ans.push_back(it);
-        }
+        for(auto it:st)     ans.push_back(it);
+
         return ans;
-    
     }
-}; 
+};
