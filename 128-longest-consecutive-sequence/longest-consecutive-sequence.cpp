@@ -17,7 +17,6 @@ public:
         int last = INT_MIN;
         for(int i = 0 ; i < n ; i++){
 
-            if(i == 0)  last = nums[i];
             
 
             if(nums[i] - 1 == last){
