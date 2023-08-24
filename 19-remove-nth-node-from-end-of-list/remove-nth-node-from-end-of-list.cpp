@@ -1,47 +1,55 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+// /**
+//  * Definition for singly-linked list.
+//  * struct ListNode {
+//  *     int val;
+//  *     ListNode *next;
+//  *     ListNode() : val(0), next(nullptr) {}
+//  *     ListNode(int x) : val(x), next(nullptr) {}
+//  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+//  * };
+//  */
 class Solution {
-    int getSize(ListNode* head){
-        if(head == NULL)    return 0;
-        int count = 0;
-        ListNode* curr = head;
-
-        while(curr){
-            count++;
-            curr = curr->next;
-        }
-        return count;
-    }
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        if(head == NULL)    return head;
-        int size = getSize(head);
-        // if(n > size)    return head;
-        if(size == n)   return head->next;
-        ListNode* curr = head;
-        ListNode* prev = NULL;
 
-        int count = 0;
+        ListNode* dummy = new ListNode();
+        dummy -> next = head;
+        ListNode* backPtr = dummy;
+        ListNode* frontPtr = dummy;
 
-        while(count < size-n && curr){
-            count++;
-            prev = curr;
-            curr = curr->next;
+        for(int i = 1 ; i <= n; i++){
+            frontPtr = frontPtr->next;
         }
-        if(!curr->next)  prev->next = NULL;
-        else{  
-            prev->next = curr -> next;
-            curr->next = NULL;
-        }
-        return head;
 
+        while(frontPtr -> next != NULL){
+            frontPtr = frontPtr->next;
+            backPtr = backPtr->next;
+        }
+
+        backPtr -> next = backPtr->next->next;
+
+        return dummy->next;
     }
 };
+// class Solution {
+//     public:
+//      ListNode* removeNthFromEnd(ListNode* head, int n) {
+//        ListNode* start = new ListNode();
+//         start->next = head;
+//         ListNode* fast = start;
+//         ListNode* slow = start;     
+
+//         for(int i = 1; i <= n; ++i)
+//             fast = fast->next;
+    
+//         while(fast->next != NULL)
+//         {
+//             fast = fast->next;
+//             slow = slow->next;
+//         }
+        
+//         slow->next = slow->next->next;
+        
+//         return start->next;
+//     }
+// };
