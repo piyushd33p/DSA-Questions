@@ -24,8 +24,7 @@ public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         if(head == NULL)    return head;
         int size = getSize(head);
-        if(n > size)    return head;
-        if(size ==1 && n == 1)  return NULL;
+        // if(n > size)    return head;
         if(size == n)   return head->next;
         ListNode* curr = head;
         ListNode* prev = NULL;
