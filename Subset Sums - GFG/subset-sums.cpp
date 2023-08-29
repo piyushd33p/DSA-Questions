@@ -6,26 +6,26 @@ using namespace std;
 class Solution
 {
 private:
-    void subSum(int index, vector<int>&arr, int n, vector<int>& ans, int sum){
-        if(index == n){
+    void findSum(vector<int>& arr, int n, int index, int sum, vector<int>& ans){
+        if(index == n ){
             ans.push_back(sum);
             return;
         }
-        
         sum += arr[index];
-        subSum(index+1, arr, n, ans, sum);
+        findSum(arr, n, index+1, sum, ans);
         
         sum -= arr[index];
-        subSum(index+1, arr, n, ans, sum);
+        findSum(arr, n, index+1, sum, ans);
     }
 public:
-    vector<int> subsetSums(vector<int> arr, int n)
+    vector<int> subsetSums(vector<int> arr, int N)
     {
         // Write Your Code here
+        int index = 0;
         vector<int> ans;
         int sum = 0;
         
-        subSum(0, arr, n, ans, sum);
+        findSum(arr, N, index, sum, ans );
         return ans;
     }
 };
