@@ -1,31 +1,30 @@
 class Solution {
 private:
-    void getSub(vector<int>& nums, int n, int index, set<vector<int>>& st, vector<int>& temp){
-        if(index == n){
-            st.insert(temp);
+    void findSub(vector<int>& nums, set<vector<int>>& st, int index, vector<int>& ds){
+        if(index == nums.size()){
+            st.insert(ds);
             return;
         }
 
-        temp.push_back(nums[index]);
-        getSub(nums, n, index+1, st, temp);
+        ds.push_back(nums[index]);
+        findSub(nums, st, index+1, ds);
 
-        temp.pop_back();
-        getSub(nums, n, index+1, st, temp);
+        ds.pop_back();
+        findSub(nums, st, index+1, ds);
     }
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        set<vector<int>> st;
-        int n = nums.size();
-        int index = 0;
-        vector<int> temp;
-        sort(nums.begin(), nums.end());
-        getSub(nums, n, index, st, temp);
-
         vector<vector<int>> ans;
+
+        set<vector<int>> st;
+        vector<int> ds;
+
+        sort(nums.begin(), nums.end());
+        findSub(nums, st, 0, ds);
+
         for(auto it: st){
             ans.push_back(it);
         }
-
         return ans;
     }
 };
