@@ -1,52 +1,51 @@
 class Solution {
 private:
 
-    void merge(vector<int> &nums, int low, int high, int mid){
-        int left = low;
-        int right = mid +1;
+    void merge(vector<int>& nums, int low, int mid, int high){
+        int i = low;
+        int j = mid +1;
         vector<int> temp;
 
-        while(left <= mid && right <= high ){
-            if(nums[left] <= nums[right]){
-                temp.push_back(nums[left]);
-                left++;
+        while(i <= mid && j <= high){
+            if(nums[i] <= nums[j]){
+                temp.push_back(nums[i]);
+                i++;
             }
             else{
-                temp.push_back(nums[right]);
-                right++;
+                temp.push_back(nums[j]);
+                j++;
             }
         }
-        while(left <= mid){
-            temp.push_back(nums[left]);
-                left++;
+        while(i <= mid){
+            temp.push_back(nums[i]);
+            i++;
         }
-        while(right <= high){
-            temp.push_back(nums[right]);
-                right++;
+        while( j <= high){
+            temp.push_back(nums[j]);
+            j++;
         }
 
         for(int i = low; i<= high; i++){
             nums[i] = temp[i-low];
         }
-
     }
 
     void mergeSort(vector<int>& nums, int low, int high){
-        if(low == high)     return;
+        if(high <= low){
+            return;
+        }
 
         int mid = low + (high - low)/2;
 
         mergeSort(nums, low, mid);
         mergeSort(nums, mid+1, high);
 
-        merge(nums, low, high, mid);
+        merge(nums, low, mid, high);
     }
 public:
     vector<int> sortArray(vector<int>& nums) {
-        int n = nums.size()-1;
+        mergeSort(nums, 0, nums.size()-1);
 
-        mergeSort(nums, 0 , n);
         return nums;
-        
     }
 };
