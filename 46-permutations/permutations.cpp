@@ -1,27 +1,32 @@
 class Solution {
 private:
-    void findPerm(vector<int>& nums, vector<vector<int>>& ans, int index, int n){
-
-        if(index == n){
-            ans.push_back(nums);
+    void find(vector<int>& nums, vector<vector<int>>& ans, vector<int>& ds, vector<int>& mp){
+        if(ds.size() == nums.size()){
+            ans.push_back(ds);
             return;
         }
 
-        for(int i = index; i< n; i++){
-            swap(nums[index], nums[i]);
-            findPerm(nums, ans, index+1,n);
-            swap(nums[index], nums[i]);
-        }
+        for(int i = 0; i < nums.size(); i++){
+            if(!mp[i]){
+                ds.push_back(nums[i]);
+                mp[i] = 1;
 
+                find(nums, ans, ds, mp);
+
+                mp[i] = 0;
+                ds.pop_back();
+            }
+        }
     }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
-
         vector<vector<int>> ans;
+        vector<int> ds;
+        
+        vector<int> mp(nums.size(), 0);
 
-        int n = nums.size();
+        find(nums, ans, ds, mp);
 
-        findPerm(nums, ans, 0, n);
         return ans;
     }
 };
